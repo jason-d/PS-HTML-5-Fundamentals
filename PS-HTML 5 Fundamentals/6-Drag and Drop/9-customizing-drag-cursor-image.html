@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Drag and Drop: Customizing Drag Cursor Image</title>
+	<link rel="icon" type="image/png" href="/src/favicon.png">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<script src="../Scripts/modernizr-2.7.1.js"></script>
+	<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+	<style>
+		[draggable="true"] {
+			-moz-user-select: none;
+			-khtml-user-select: none;
+			-webkit-user-select: none;
+			user-select: none;
+			/*Support old versions of WebKit*/
+			-khtml-user-drag: element;
+			-webkit-user-drag: element;
+		}
+
+		.over {
+			background-color: #fff;
+			border: 1px dashed #999;
+		}
+	</style>
+</head>
+<body>
+	<h1>Drag & Drop: Customizing Drag Cursor Image</h1>
+
+	<div id="result-stub" class="well">
+		<img id="drag-image" class="hidden" src="../img/arrow-up.png" />
+
+		<div id="target" class="well">
+			<h4>Drop Here</h4>
+		</div>
+
+		<div id="source" draggable="true" class="well">
+			<h4>Drag Me</h4>
+		</div>
+	</div>
+
+	<script>
+		(function () {
+
+			var cancel = function (e) {
+
+				if (e.preventDefault) {
+
+					e.preventDefault();
+				}
+
+				if (e.stopPropagation) {
+
+					e.stopPropagation();
+				}
+
+				return false;
+			};
+
+			var dragStart = function (e) {
+
+				var canvas = document.createElement('CANVAS');
+				var context = canvas.getContext('2d');
+				var img = document.getElementById('drag-image');
+				var dragImage = null;
+
+				context.drawImage(img, 0, 0);
+
+				dragImage = document.createElement('IMG');
+				dragImage.src = canvas.toDataURL();
+
+				e.dataTransfer.setDragImage(dragImage, -15, -15);
+
+				try {
+
+					e.dataTransfer.setData('text/plain', ''); //Firefox requires that you set something for 'text/plain'
+				} catch (ex) {
+
+					e.dataTransfer.setData('Text', '');
+				}
+			};
+
+			var dropped = function (e) {
+
+				cancel(e);
+
+				$(this).removeClass('over');
+			};
+
+			var dragLeave = function () {
+
+				$(this).removeClass('over');
+			}
+
+			var dragOver = function (e) {
+
+				cancel(e);
+
+				$(this).addClass('over');
+			}
+
+			var target = document.querySelector('#target');
+
+			target.addEventListener('drop', dropped, false);
+			target.addEventListener('dragenter', cancel, false);
+			target.addEventListener('dragover', dragOver, false);
+			target.addEventListener('dragleave', dragLeave, false);
+
+			var source = document.querySelector('#source');
+
+			source.addEventListener('dragstart', dragStart, false);
+		}())
+	</script>
+</body>
+</html>
