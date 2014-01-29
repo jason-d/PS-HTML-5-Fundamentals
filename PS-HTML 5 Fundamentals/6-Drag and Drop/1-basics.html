@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Drag and Drop: Basics</title>
+    <link rel="icon" type="image/png" href="/src/favicon.png">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="../Scripts/modernizr-2.7.1.js"></script>
+    <style>
+        [data-role="drag-drop-container"] {
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            padding: 10px;
+            border: 3px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .over {
+            background-color: #ffc;
+        }
+
+        [draggable="true"] {
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+            /* Support old versions of WebKit */
+            -khtml-user-drag: element;
+            -webkit-user-drag: element;
+        }
+
+        .drag {
+            opacity: 0.25;
+        }
+    </style>
+</head>
+<body>
+    <h1>Drag and Drop - Basics</h1>
+
+    <div id="result-stub" class="well">
+        <div id="source-container" data-role="drag-drop-container">
+            <img id="ps-logo" draggable="true" src="../img/ps-circle.png" />
+        </div>
+
+        <div id="target-container" data-role="drag-drop-container"></div>
+
+        <div style="clear:both;"></div>
+    </div>
+
+    <script>
+        (function () {
+
+            var dragStart = function (e) {
+
+                //IE doesn't support 'text/plain'
+                try {
+                    e.dataTransfer.setData('text/plain', e.target.id);
+                } catch (ex) {
+                    e.dataTransfer.setData('Text', e.target.id);
+                }
+            };
+
+            var dropped = function (e) {
+
+                cancel(e);
+
+                var id;
+
+                try {
+                    id = e.dataTransfer.getData('text/plain');
+                } catch (ex) {
+                    id = e.dataTransfer.getData('Text');
+                }
+
+                e.target.appendChild(document.querySelector('#' + id));
+            };
+
+            var cancel = function (e) {
+
+                if (e.preventDefault) {
+                    e.preventDefault();
+                }
+
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                }
+
+                return false;
+            };
+
+            var img = document.querySelector('#ps-logo');
+            img.addEventListener('dragstart', dragStart, false);
+
+            var selector = '#target-container';
+            var target = document.querySelector(selector);
+
+            target.addEventListener('drop', dropped, false);
+            target.addEventListener('dragenter', cancel, false);
+            target.addEventListener('dragover', cancel, false);
+        }());
+    </script>
+</body>
+</html>

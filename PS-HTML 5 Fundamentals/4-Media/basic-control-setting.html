@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Basic Control Setting</title>
+    <meta charset="utf-8" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+<body>
+    <h4>Video</h4>
+
+    <video controls preload loop poster="../img/bbb.png" width="320">
+        <source src="../media/big_buck_bunny.mp4" type="video/mp4" />
+        <source src="../media/big_buck_bunny.ogv" type="video/ogv" />
+        <source src="../media/big_buck_bunny.webm" type="video/webm" />
+        <p>No native support for video</p>
+    </video> <br />
+    <span class="btn btn-mini">
+        Video courtesy of
+        <a href="http://www.bigbuckbunny.org/">Big Buck Bunny</a>
+    </span>
+
+    <hr />
+
+    <h4>Audio</h4>
+
+    <audio controls loop autoplay>
+        <source src="../media/PolymorphicPodcast-clip.mp3" type="audio/mp3" />
+        <source src="../media/PolymorphicPodcast-clip.ogg" type="audio/ogg" />
+        <source src="../media/PolymorphicPodcast-clip.wav" type="audio/vnd.wave" />
+        <p>No native support for audio</p>
+    </audio>
+</body>
+</html>

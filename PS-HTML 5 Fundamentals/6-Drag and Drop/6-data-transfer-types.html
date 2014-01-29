@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Drag and Drop: Data Transfer Types</title>
+	<link rel="icon" type="image/png" href="/src/favicon.png">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<script src="../Scripts/modernizr-2.7.1.js"></script>
+	<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+	<style>
+		[draggable="true"] {
+			-moz-user-select: none;
+			-khtml-user-select: none;
+			-webkit-user-select: none;
+			user-select: none;
+
+			/*Support old versions of WebKit*/
+			-khtml-user-drag: element;
+			-webkit-user-drag: element;
+		}
+
+		.over {
+			background-color: #fff;
+			border: 1px dashed #999;
+		}
+	</style>
+</head>
+<body>
+	<h1>Drag & Drop - Data Transfer Types (types not recognized in IE 10 &amp; below)</h1>
+
+	<div id="result-stub" class="well">
+		<div id="target" class="well">
+			<h4>Drop Here</h4>
+		</div>
+
+		<a id="clear" href="#" class="btn btn-mini">Clear Drop Target</a>
+
+		<div id="content">
+			<p><img src="../img/fist-pump-baby-small.jpg" /></p>
+			<ul>
+				<li><a href="http://twitter.com/craigshoemaker">@craigshoemaker</a></li>
+				<li><a href="http://twitter.com/pluralsight">@pluralsight</a></li>
+			</ul>
+			<p style="color:#940000">
+				In dapibus ligula sed velit
+				ultrices tempus in eget neque. Etiam eu vestibulum
+				risus, ut lobortis sapien. Etiam imperdiet dictum
+				diam, id ultricies dolor dapibus ut. Sed nec
+				risus luctus.
+			</p>
+		</div>
+	</div>
+
+	<script>
+		(function () {
+			
+			var cancel = function (e) {
+
+				if (e.preventDefault) {
+
+					e.preventDefault();
+				}
+
+				if (e.stopPropagation) {
+
+					e.stopPropagation();
+				}
+
+				return false;
+			};
+
+			var dropped = function (e) {
+
+				cancel(e);
+
+				var target = $(this);
+				var content = '';
+
+				if (e.dataTransfer.types.length > 0) {
+
+					if (e.dataTransfer.types[0] === 'Text') {
+
+						target.text(e.dataTransfer.getData('Text'));
+					} else {
+
+						$(e.dataTransfer.types).each(function (index, type) {
+
+							content = e.dataTransfer.getData(type);
+
+							target.append('<p><b>Type</b>: ' + type + '<br /><b>Content</b>: ' + content + '</p><hr />');
+						});
+					}
+				}
+
+				target.removeClass('over');
+
+				// If you want to clear data from 
+				// the dataTransfer object you 
+				// can call:
+				//
+				//  e.dataTransfer.clearData(); 
+				//
+				// to remove all data, or:
+				//
+				//  e.dataTransfer.clearData('text/plain');
+				//
+				// where 'text/plain' can be 
+				// substituted for any of the 
+				// data types where you want to 
+				// remove the value.
+			};
+
+			var dragLeave = function (e) {
+
+				$(this).removeClass('over');
+			};
+
+			var dragOver = function (e) {
+
+				cancel(e);
+
+				$(this).addClass('over');
+			};
+
+			var target = document.querySelector('#target');
+
+			target.addEventListener('drop', dropped, false);
+			target.addEventListener('dragenter', cancel, false);
+			target.addEventListener('dragover', dragOver, false);
+			target.addEventListener('dragleave', dragLeave, false);
+
+			$('#clear').click(function (e) {
+
+				e.preventDefault();
+				$(target).html('<h4>Drop Here</h4>');
+			});
+		}());
+	</script>
+</body>
+</html>

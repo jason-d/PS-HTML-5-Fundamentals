@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Drag and Drop: Sort Orders</title>
+	<link rel="icon" type="image/png" href="/src/favicon.png">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<script src="../Scripts/modernizr-2.7.1.js"></script>
+	<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+	<style>
+		ul.moveable {
+			list-style: none;
+			margin: 0;
+		}
+
+		ul.moveable li {
+			list-style-image: none;
+			margin: 10px;
+			border: 1px solid #ccc;
+			padding: 4px;
+			border-radius: 4px;
+			color: #666;
+			cursor: move;
+		}
+
+		ul.moveable li:hover {
+			background-color: #eee;
+		}
+
+		[draggable="true"] {
+			-moz-user-select: none;
+			-khtml-user-select: none;
+			-webkit-user-select: none;
+			user-select: none;
+
+			/*Support old versions of WebKit*/
+			-khtml-user-drag: element;
+			-webkit-user-drag: element;
+		}
+	</style>
+</head>
+<body>
+	<h1>Drag & Drop - Sort Order</h1>
+
+	<div id="result-stub" class="well">
+		<ul id="items-list" class="moveable">
+			<li><i class="icon-flag"></i> One</li>
+			<li><i class="icon-asterisk"></i> Two</li>
+			<li><i class="icon-gift"></i> Three</li>
+			<li><i class="icon-calendar"></i> Four</li>
+		</ul>
+	</div>
+
+	<script>
+		(function () {
+			
+			var isDnDTypesSupported = true;
+
+			var dragStart = function (e) {
+
+				var index = $(e.target).index();
+
+				index += ''; //Convert to string for IE
+
+				try {
+
+					e.dataTransfer.setData('text/plain', index);
+				} catch (e) {
+
+					e.dataTransfer.setData('Text', index);
+
+					isDnDTypesSupported = false;
+				}
+			};
+
+			var dropped = function (e) {
+
+				cancel(e);
+
+				var oldIndex;
+
+				if (isDnDTypesSupported) {
+
+					oldIndex = e.dataTransfer.getData('text/plain');
+				} else {
+
+					oldIndex = e.dataTransfer.getData('Text');
+				}
+
+				var target = $(e.target);
+				var newIndex = target.index();
+				var dropped = $(this).parent().children().eq(oldIndex);
+
+				dropped.remove();
+
+				if (newIndex < oldIndex) {
+
+					target.before(dropped);
+				} else {
+
+					target.after(dropped);
+				}
+			};
+
+			var cancel = function (e) {
+
+				if (e.preventDefault) {
+
+					e.preventDefault();
+				}
+
+				if (e.stopPropagation) {
+
+					e.stopPropagation();
+				}
+
+				return false;
+			};
+
+			var items = document.querySelectorAll('#items-list > li');
+
+			Array.prototype.forEach.call(items, function (item) {
+
+				$(item).prop('draggable', true);
+
+				item.addEventListener('dragstart', dragStart, false);
+				item.addEventListener('drop', dropped, false);
+				item.addEventListener('dragenter', cancel, false);
+				item.addEventListener('dragover', cancel, false);
+			});
+		}());
+	</script>
+</body>
+</html>

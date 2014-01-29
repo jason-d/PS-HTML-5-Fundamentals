@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Canvas: Video Thumbnails</title>
+    <link rel="icon" type="image/png" href="/src/favicon.png">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="../Scripts/modernizr-2.7.1.js"></script>
+    <style>
+        #thumbs {
+            margin-top: 15px;
+            width: 80%;
+            height: 300px;
+            border: 1px solid #ccc;
+            background-color: #ddd;
+            overflow: auto;
+        }
+
+            #thumbs img {
+                padding: 4px;
+            }
+
+        #vid, #thumbs {
+            width: 320px;
+            height: 180px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Canvas - Video Thumbnails</h1>
+
+    <div id="result-stub" class="well">
+        <div id="player">
+            <video id="vid" controls>
+                <source src="../media/big_buck_bunny.mp4" type="video/mp4" />
+                <source src="../media/big_buck_bunny.ogv" type="video/ogv" />
+                <source src="../media/big_buck_bunny.webm" type="video/webm" />
+            </video>
+        </div>
+        <button id="btn" class="btn btn-mini push-down">Get Thumbnail</button>
+        <div id="thumbs"></div>
+        <canvas id="canvas" class="hidden">
+            <p>Your browser does not support the canvas element.</p>
+        </canvas>
+    </div>
+
+    <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="video-thumbnails.js"></script>
+</body>
+</html>

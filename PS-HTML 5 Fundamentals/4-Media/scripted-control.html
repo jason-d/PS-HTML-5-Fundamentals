@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Scripted Control of Media Element</title>
+    <meta charset="utf-8" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="scripted-control.js"></script>
+</head>
+<body>
+    <video id="vid" poster="../img/bbb.png" width="320">
+        <source src="../media/big_buck_bunny.mp4" type="video/mp4" />
+        <source src="../media/big_buck_bunny.ogv" type="video/ogv" />
+        <source src="../media/big_buck_bunny.webm" type="video/webm" />
+    </video>
+    <div>
+        <input id="scrubber" type="range" min="0" max="1" value="0" step="0.01" />
+
+        <span id="remainingTime">0:00</span> /
+        <span id="totalTime">0:00</span>
+    </div>
+    <div>
+        <button id="playPause" class="btn">Play</button>
+        <button id="stop" class="btn">Stop</button>
+        <button id="begin" class="btn">&lt;&lt;</button>
+        <button id="rewind" class="btn">&lt;</button>
+        <button id="fastForward" class="btn">&gt;</button>
+        <button id="end" class="btn">&gt;&gt;</button>
+    </div>
+    <div>
+        <input id="volume" type="range" min="0" max="1" step="0.1" />
+        <button id="mute" class="btn">Mute</button>
+    </div>
+    <div>
+        Speed
+        <input id="playbackRate" type="range" min="1" max="4" step="1" value="1" />
+    </div>
+</body>
+</html>

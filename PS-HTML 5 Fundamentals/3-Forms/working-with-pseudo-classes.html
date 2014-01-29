@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Working with Pseudo Classes</title>
+    <meta charset="utf-8" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <style>
+        input:valid + .invalid {
+            visibility: hidden;
+        }
+
+        input:invalid + .invalid {
+            visibility: visible;
+        }
+
+        input:required {
+            border: 2px solid #900;
+        }
+
+        input:valid {
+            border: 2px solid #ccc;
+        }
+
+        .invalid {
+            margin-top: 0px;
+            margin-bottom: 4px;
+            font-size: 0.8em;
+            color: #666
+        }
+    </style>
+</head>
+<body>
+    <div class="well">
+        <form>
+            <fieldset>
+                <h4>Change Emaill Address</h4>
+
+                <input type="text"
+                       name="username"
+                       pattern="[a-zA-Z ]{5,}"
+                       placeholder="Username"
+                       maxlength="30" required />
+                <div class="invalid">
+                    The required user name may only be a series
+                    of alphabetical characters.
+                </div>
+
+                <input type="email"
+                       name="email"
+                       placeholder="Email" required />
+                <div class="invalid">
+                    The required email address may not include any special
+                    characters other than the '@' sign.
+                </div>
+
+                <button type="submit"
+                        name="submit"
+                        class="btn">
+                    Change
+                </button>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
