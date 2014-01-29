@@ -63,6 +63,7 @@
     <Content Include="4-Media\scripted-control.js" />
     <Content Include="5-Canvas\video-thumbnails.html" />
     <Content Include="5-Canvas\video-thumbnails.js" />
+    <Content Include="6-Drag and Drop\10-drag-and-drop-javascript-module.html" />
     <Content Include="6-Drag and Drop\4-styling-drag-sources-and-drop-targets.html" />
     <Content Include="6-Drag and Drop\2-role-selectors.html" />
     <Content Include="6-Drag and Drop\1-basics.html" />
@@ -71,6 +72,7 @@
     <Content Include="6-Drag and Drop\5-sort-order.html" />
     <Content Include="6-Drag and Drop\8-drop-effects.html" />
     <Content Include="6-Drag and Drop\9-customizing-drag-cursor-image.html" />
+    <Content Include="6-Drag and Drop\drag-drop.js" />
     <Content Include="img\arrow-up.png" />
     <Content Include="img\bbb.png" />
     <Content Include="img\bkg.png" />
