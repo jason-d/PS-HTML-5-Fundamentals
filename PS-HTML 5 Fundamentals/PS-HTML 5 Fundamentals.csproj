@@ -69,6 +69,7 @@
     <Content Include="6-Drag and Drop\7-working-with-files.html" />
     <Content Include="6-Drag and Drop\6-data-transfer-types.html" />
     <Content Include="6-Drag and Drop\5-sort-order.html" />
+    <Content Include="6-Drag and Drop\8-drop-effects.html" />
     <Content Include="img\arrow-up.png" />
     <Content Include="img\bbb.png" />
     <Content Include="img\bkg.png" />
